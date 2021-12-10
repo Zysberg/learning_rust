@@ -5,7 +5,7 @@ fn main () {
 // Display and Debug Printing
 /*
 	Some variables can't be printed within {} in the println! macro
-	(macros explained later), therefore you need t ouse the debug print
+	(macros explained later), therefore you need to use the debug print
 
 	To print the largest and smallest possible numbers for each type print...
 	std::nM::MIN , std::nM :MAX, for n = {i,u} M = {2^n: 2 < n < 8} 
@@ -14,7 +14,7 @@ fn main () {
 	println!("Try removing the ':?' - {:?}", will_not_print_with_curlies_alone);
 	let some_str = "blahblahblah";
 	println!("What does :#? do? - {:#?}", some_str);
-	print!("This line is ecquivalent to println!(...)\n"); // note the '\n'
+	print!("This line is equivalent to println!(...)\n"); // note the '\n'
 
 
 // Mutability
@@ -53,7 +53,7 @@ fn main () {
 
 	println!("something (after block): {}",something);
 
-// Stack v. Heap - places in memory
+// Stack v. Heap places in memory
 /*
 	stack
 		- faster than heap
@@ -77,10 +77,10 @@ fn main () {
 	// It's like opening a book and reading a page rather than ripping than
 	// 		page out for yourself to read
 
-	// if some_variable was mutable, and ref_to_var was defined as:
-		// &mut some_variable
-	// *ref_to_var += 1;
-	//println!("69 + 1 = {}", some_variable);
+	let mut mutable_var = 69;
+	let mut ref_to_mutable_var = &mut mutable_var;
+	*ref_to_mutable_var += 1;
+	println!("69 + 1 = {}", mutable_var);
 	// //* indicates de-referencing the variable. 
 	// //*ref_to_var is the same as some_variable
 
@@ -95,18 +95,19 @@ fn main () {
 	b"..." print the individual bytes of a &str or char (works for ASCII)
 	"{:x}" input value will print as hexidecimal bytes, swap for o(ctal) b(inary)
 	"\u{hexVals}" prints unicode chars
-
+fat
 
 */
 
 	let r#let = 6; // The variable's name is let
     let mut r#mut = 10; // This variable's name is mut
 
-    let my_number = r#return(); // This is stupid
+    let my_number = r#return(); // This is stupid, please don't do this
     println!("{}", my_number);
 
-    println!("This is {1} {2}, son of {0} {2}.", father_name, son_name, family_name);
-    println!("{:ㅎ^11}", letter); // ㅎㅎㅎㅎㅎaㅎㅎㅎㅎㅎ
+    // println!("This is {1} {2}, son of {0} {2}.", father_name, son_name, family_name);
+    let letter = "a";
+    println!("{:ㅎ^11}", letter);
     // padding characters < pad those  11 chars to the left,^ middle, > right
 
 }

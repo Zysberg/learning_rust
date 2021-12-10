@@ -1,4 +1,4 @@
-#[allow(unused_variables,dead_code)] // you'll learn what these are later
+#![allow(unused_variables,dead_code)] // you'll learn what these are later
 
 fn main () {
 	// Strings
@@ -88,7 +88,6 @@ fn main () {
 
 	//Giving References to Functions
 	/*
-		 Explanations of lines 124 - 126
 		 - We create a String called qwery, qwery is the owner.
 		 - give qwery to some_fxn, some_fxn now owns qwery.
 		 - some_fxn doesnt return anything.
@@ -96,51 +95,45 @@ fn main () {
 		 - we try to give qwery to the fxn again, but qwery is stale/is 
 		 		kind of a dangling pointer at this point.
 		 - compiler error.
+	*/
+	let qwery = String::from("the value");
+	some_fxn(qwery);
+	// some_fxn(qwery) // compiler error here if uncommented
 
-		Explanations of lines 128 - 137
+	/*
 		We can make the fxn get the string value back, but it's not technically the same.
 		 - Create a String in which qpwo is the owner.
 		 - Transfer ownership of said string to another_fxn.
 		 - That String gets destroyed but another_fxn returns the value that was passed into it.
 		 - this_thing now owns this returned value of another_fxn
 		 - this_thing gets destroyed because of the printn statement
+	*/
+	let qpwo = String::from("another value");
+	let this_thing = another_fxn(qpwo);
+	println!("this_thing - {}", this_thing);
+	// println!("uncomment me I dare you - {}", qpwo);
 
-		Explanations of lines 133 - 138
+	/*
 		 - String created, owned by hua
 		 - reference to string created
 		 - reference is passed to yet_another_fxn (yet_another_fxn has borrowed the String)
 		 - because original string wasn't destroyed, ref still points to fresh value
 		 - value is still fresh so you can print that too
-
-		Explanations of lines 140 - 147
+	*/
+	let hua = String::from("yet another value");
+	let ref_hua = &hua;
+	yet_another_fxn(ref_hua);
+	println!("I'm a ref to hua{}", ref_hua); // as long as what's being ref'd isn't destroyed
+											 // you're good
+	println!("print hua {}", hua); // hua has not been destroyed yet, still valid
+	/*
 		- create a String, ghg owns it
 		- create a reference to said String
 		- pass reference to modify_string, modify_string is borrowing the String
 		- modify_string does something to the original string
 		- pretty printing
 		- make ghg stale
-
-		Explanation of lines 154 - 157
-		- same as lines 128-137 except it returns a modifed version of a new string
-			but it contains the string passed as a parameter
-
 	*/
-	let qwery = String::from("the value");
-	some_fxn(qwery);
-	// some_fxn(qwery) // compiler error here if uncommented
-
-	let qpwo = String::from("another value");
-	let this_thing = another_fxn(qpwo);
-	println!("this_thing - {}", this_thing);
-	// println!("uncomment me I dare you - {}", qpwo);
-	
-	let hua = String::from("yet another value");
-	let ref_hua = &hua;
-	yet_another_fxn(ref_hua);
-	println!("I'm a ref to hua{}", ref_hua); // as long as what's being ref'd isn't destroyed
-											// you're good
-	println!("print hua {}", hua); // hua has not been destroyed yet, still valid
-
 	let mut ghg = String::from("this string");
 	let ghg_ptr = &mut ghg;
 	// println!("try uncommenting me too, {}", ghg);
@@ -151,6 +144,10 @@ fn main () {
 	some_fxn(ghg);
 	// println!("you already know what'll happen {}", ghg);
 
+	/*
+		- same as lines 128-137 except it returns a modifed version of a new string
+			but it contains the string passed as a parameter
+	*/
 	let last_example = "one more string".to_string();
 	println!("before another_modify_string_fxn, {}", last_example);
 	let copied_and_modded = another_modify_string_fxn(last_example);

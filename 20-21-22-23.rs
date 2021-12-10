@@ -1,5 +1,5 @@
-#[allow(unused_variables)] // you'll learn what these are later
-#[allow(dead_code)] // you'll learn what these are later
+#![allow(unused_variables)] // you'll learn what these are later
+#![allow(dead_code)] // you'll learn what these are later
 
 fn main () {
 	//Copy Types
@@ -15,8 +15,8 @@ fn main () {
 
 		Copy types have trait implementations
 			- is copied when you send it to a function (Copy)
-			- {} implements (Display)
-			- {:?} implements (Debug)
+			- {} (implements Display)
+			- {:?} (implements Debug)
 
 		String is not a copy type, but among the list of Traits implemented for it, 
 		there is Clone(String::new().clone())
@@ -24,9 +24,9 @@ fn main () {
 		.clone() is expensive, faster to reference via &
 	*/
 
-	let a: i32 = 99;
-	some_fxn(a); //since a is a copy type, some_fxn gets a copy of a
-	some_fxn(a);
+	let a: i32 = 99; // since i32 is a copy type...
+	some_fxn(a); // since a is a copy type, some_fxn gets a copy of a
+	some_fxn(a); // a is still valid because a is a copy type
 
 	let some_string = String::from("Sturinguh");
 	another_fxn(some_string.clone());
@@ -43,11 +43,26 @@ fn main () {
 
 	let my_variable;
 	{
-		let my_variable = { 57 }; // pretend the shadowed recent version of my_varable is needed
+		let my_variable = { 57 }; // pretend the shadowed new version of my_varable is needed
 	}
 	my_variable = 1;
 	println!("declaring then defining - {}", my_variable);
 	drop(my_variable); // makes variable stale manually
+
+	// Useful scenario for when you have variable without value
+	fn loop_then_retrn(mut cnt: i32) -> i32 {
+		loop {
+			cnt += 1;
+			if cnt % 50 == 0  { 
+				break;
+			}
+		}
+		cnt
+	}
+
+
+
+
 
 	// Collection Types
 	/*
@@ -57,13 +72,15 @@ fn main () {
 			- defined as [type;size]
 
 	*/
-	let arr1 = ["el","em"]; // type [&str, 2]
+	let arr1 = ["el","qw"]; // type [&str, 2]
 	println!("{:?}",arr1);
 			//   0  1  2  3  4  5    6  7
 	let arr2 = [55,22,63,69,11,9234,44,20];
-	println!("idx3 to idx5 inclusive {:?}", &arr2[3..6]);
-	println!("Everything before idx4 {:?}", &arr2[..4]);
-	println!("Everything after idx3 {:?}", &arr2[4..]);
+	println!("--\n{:?}",arr2);
+	println!("&arr2[3..6] - {:?}", &arr2[3..6]);
+	println!("&arr[..4] -  {:?}", &arr2[..4]);
+	println!("&arr[4..] -  {:?}", &arr2[4..]);
+
 	// Vectors
 	/*
 	
@@ -81,14 +98,19 @@ fn main () {
 	let mut another_vec = vec![8,1,1,99];
 	let mut num_vec: Vec<char> = Vec::with_capacity(8);
     num_vec.push('a'); // add one character
-    println!("{}", num_vec.capacity()); // prints 8
+    println!("--\ninit capacity - {}", num_vec.capacity()); // prints 8
     num_vec.push('a'); // add one more
-    println!("{}", num_vec.capacity()); // prints 8
+    println!("after pushing second element, capacity - {}", num_vec.capacity()); // prints 8
     num_vec.push('a'); // add one more
-    println!("{}", num_vec.capacity()); // prints 8.
+    println!("pushing a third element - {}", num_vec.capacity()); // prints 8.
     num_vec.push('a'); // add one more
     num_vec.push('a'); // add one more // Now we have 5 elements
-    println!("{}", num_vec.capacity()); // Still 8
+    println!("after pushing a fifth element - {}", num_vec.capacity()); // Still 8
+    let mut vec_vec = vec!['l','m','n','o','p'];
+    num_vec = [&vec_vec[..],&num_vec[..]].concat();
+    println!("Concatenated another vector, length = {}, capacity = {}", num_vec.len(), num_vec.capacity());
+    num_vec.pop();
+    println!("popped an element, length = {}, capacity = {}\n--", num_vec.len(), num_vec.capacity());
 
     // Tuples
     /*

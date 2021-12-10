@@ -43,7 +43,7 @@ fn main () {
 
 */
 	let some_num: i8 = 100;
-	let another_num = 100; // will infer the type on compile time
+	let another_num = 100; // will infer the type on compile time (pretty sure i32)
 	let yet_another_number = 100i64;
 	let big_readable_number: i64 = 10_000_000_000; 
 	// 10 billion, too big for compiler to infer as a i32, 
