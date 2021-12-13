@@ -171,7 +171,9 @@ fn main () {
 	// Implementing structs and enums
 	/*
 		To create methods for structs, wrap fxns in an impl block
-		impl(ementation) of traits for types or for other traits
+		impl(ementation) of traits for types or for othe	country: String,
+	age: i8,
+	eye_color:String,r traits
 		(more on traits later)
 		
 		methods take self/&self/&mut self
@@ -197,4 +199,54 @@ fn main () {
 	/*
 		Basically like the spread operator for rust
 	*/
+	let random_person = Human {
+		country: String::from("USA"),
+		age: 21,
+		eye_color:String::from("brown"),
+	};
+
+	let Human {
+		country: c,
+		age: a,
+		eye_color: e,
+	} = random_person;
+
+	println!("Destructuring: Suspect is from {}, is {} years old, with {} eyes", c, a, e);
+	println!("------");
+	// References & the dot operator
+	/* 
+		
+		& <- gets the address of a variable
+		* < - de-references a variable, must be a refrence
+
+		HOWEVER when you use a method, rust will derefer for you via the '.'
+		the returned result is the address/reference of the thing you are referencing
+		if you use the '.', don't worry about the '*'
+	*/
+
+	let some_variable: i8 = 9;
+	let reference_to_var = &some_variable;
+	println!("Does &some_variable == reference_to_var? {}", &some_variable == reference_to_var);
+	println!("What about *reference_to_var == some_variable? {} ", some_variable == *reference_to_var);
+	// prints true, true
+
+	struct Something {
+		data: u8,
+	}
+
+	impl Something {
+		fn comparator(&self, other_number: u8) -> bool {
+			self.data > other_number
+		}
+	}
+
+	let a_thing = Something { data: 69 };
+	let reference_to_inner_data = &a_thing.data;
+	let ref_to_a_thing = &a_thing;
+	let ref_to_ref_to_thing = &ref_to_a_thing;
+
+	// println!("This line is a compiler error {}", reference_to_inner_data == 69);
+	println!("Unwrapping the reference_to_inner_data gives us: {}", *reference_to_inner_data);
+	println!("Example of accessing methods: \n\tref_to_struct.comparator(0) {}",ref_to_a_thing.comparator(0));
+	println!("ref_to_ref_to_thing accessing method:\n\n ref_to_ref_to_thing.comparator(0) {}", ref_to_ref_to_thing.comparator(0));
 }
