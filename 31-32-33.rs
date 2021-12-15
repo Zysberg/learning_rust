@@ -71,8 +71,67 @@ fn main () {
 	}
 	println!("none_returned is None. therefore none_returned.is_none() returns: {}", none_returned.is_none());
 	println!("Therefore none_returned.is_some() returns: {}", none_returned.is_some());
+	
+	println!("-----------");
+	// Other Collections
+	/*
+		Many types of collections:
+		- Sequences: Vec, VecDeque, LinkedList
+		- Maps: HashMap, BTreeMap
+		- Sets: HashSet, BTreeSet
+		- Misc: BinaryHeap
 
+		https://doc.rust-lang.org/beta/std/collections/
+		lists out when to use which data structure
 
+		HashMap & BTreeMap
+			- HashMap: 
+				~ Collection of keys and values, the key is
+					the used to look up the value that matches key
+				~ .get(key) returns Option -> Some(value), None
+					+ safer than hash_map[key] // will crash if doesn't exist
+				~ let mut some_value = hash_map.entry(key).or_insert(val)
+					+ if key exists in hash map, otherwise add key-val pair
+					+ can now directly manipulate value within the hashmap
+			- BTreeMap
+				~ a sortable HashMap
+		HashSet & BTreeSet
+			- HashSet:
+				~ A HashMap with only keys, each element is unique
+			- BTreeSet
+				~ Sorted HashSet
+		BinaryHeap
+			- Larger the element, smaller it's index
+			- good for managing collection of things to do
+		VecDeque
+			- Similar to Vec except you can pop items off front and back
+				~ my_vec.remove(0) is slower than my_vdQ.pop_front();
+	*/	
+	use std::collections::HashMap;
+	use std::collections::BinaryHeap;
+
+	// let mut key_chain: HashMap<&str,u32> = HashMap::new();
+	let mut key_chain = HashMap::new();
+	key_chain.insert("front door",0xbadbeef);
+	key_chain.insert("garage",0x0ddba11);
+	key_chain.insert("money safe",0x515ca11);
+
+	if key_chain.contains_key("front door") {
+		println!("Front Door Password: {:#x}", key_chain.get("front door").unwrap());
+	}
+	println!("-");
+	let mut to_do_list = BinaryHeap::new();
+	to_do_list.push((100, "Finish homework"));
+	to_do_list.push((75, "Learn Rust"));
+	to_do_list.push((5, "Annoy friends"));
+	to_do_list.push((50, "Quit job"));
+	to_do_list.push((0, "Fight God or become Him"));
+	to_do_list.push((-1, "Bring back the McRib"));
+	to_do_list.push((-2, "Die peacefully"));
+	println!("Sample to do list:");
+	while let Some(thing_to_do) = to_do_list.pop() {
+		println!("Do this: {}", thing_to_do.1);
+	}
 }
 
 
