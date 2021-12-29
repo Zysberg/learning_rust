@@ -152,4 +152,22 @@ fn main() {
     	- regulate &strs without static lifetime
     	- if you create a String and get a reference to it, Rust will convert it to a &str
     */
+    // Lifetimes
+    /*
+		aka 'how long a variable lives]
+
+		Only need to worry about lifetimes with references
+
+		We only have to write the lifetime when the compiler doesn't know.
+
+		Lifetimes can be difficult in Rust, here are some pointers
+		- You can stay with owned types or use clones to avoid this for now
+		- Most of tyhe time, when the compiler complains, you might just need <'a>
+		wherever its needed to satisfy the compiler
+
+		It's a bit confusing reading through it as of now, will come back to it at
+		some point (maybe) 28Dec21
+
+		TODO
+    */
 }
